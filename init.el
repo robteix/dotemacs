@@ -26,7 +26,7 @@
 (require-package 'ac-js2)
 (require-package 'smartparens)
 (require-package 'web-mode)
-
+(require-package 'magit)
 ;; misc emacs stuff
 (setq inhibit-startup-screen t)
 (tool-bar-mode -1)
