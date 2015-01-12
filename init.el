@@ -27,11 +27,14 @@
 (require-package 'smartparens)
 (require-package 'web-mode)
 (require-package 'magit)
+
 ;; misc emacs stuff
 (setq inhibit-startup-screen t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (show-paren-mode 1)
+(define-key global-map [home] 'beginning-of-line)
+(define-key global-map [end] 'end-of-line)
 
 (defun add-to-path (path-element)
   "Add the specified path element to the Emacs PATH and exec-path"
