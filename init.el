@@ -138,5 +138,5 @@
 (if (font-existsp "Source Code Pro")
     (progn
       (set-face-font 'default "Source Code Pro")
-      (set-face-attribute 'default nil :height 180)))
+      (set-face-attribute 'default nil :height 140)))
 
