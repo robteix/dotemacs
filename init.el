@@ -78,7 +78,8 @@
 ;; start the server if not running
 (load "server")
 (unless (server-running-p)
-  (server-start))
+  (server-start)
+  (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
 
 ;; init PATH from shell if on OSX
 (when (memq window-system '(mac ns))
@@ -117,8 +118,6 @@
 
 (require 'go-autocomplete)
 (require 'auto-complete-config)
-
-(server-start)
 
 ;; markdown mode
 (autoload 'markdown-mode "markdown-mode"
