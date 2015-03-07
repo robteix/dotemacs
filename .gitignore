@@ -1,3 +1,5 @@
 *~
 eshell/
 *.elc
+elpa
+history
