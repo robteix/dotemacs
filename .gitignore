@@ -3,3 +3,4 @@ eshell/
 *.elc
 elpa
 history
+tramp
