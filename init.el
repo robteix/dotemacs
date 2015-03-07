@@ -94,6 +94,8 @@
 ;; TRAMP
 (add-to-list 'load-path "~/.emacs.d/tramp/lisp")
 (require 'tramp)
+(setq tramp-default-method "ssh"
+      tramp-persistency-file-name "~/.tramp-persistence-file")
 
 ;; js stuff
 (add-hook 'js-mode-hook 'js2-minor-mode)
