@@ -90,6 +90,9 @@
 (require 'smartparens-config)
 (require 'auto-complete)
 
+;; TRAMP
+(add-to-list 'load-path "~/.emacs.d/tramp/lisp")
+(require 'tramp)
 
 ;; js stuff
 (add-hook 'js-mode-hook 'js2-minor-mode)
