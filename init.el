@@ -29,6 +29,7 @@
 (require-package 'web-mode)
 (require-package 'magit)
 (require-package 'markdown-mode)
+(require-package 'sublime-themes)
 
 ;; misc emacs stuff
 (setq inhibit-startup-screen t)
@@ -134,10 +135,14 @@
   (if (null (x-list-fonts font))
       nil t))
 
+;; make sure the spolky theme can be loaded
+(setq custom-safe-themes '("0c29db826418061b40564e3351194a3d4a125d182c6ee5178c237a7364f0ff12" default))
+
 ;; Set font to Source Code Pro in systems that have it
 (if (and (display-graphic-p) (font-existsp "Source Code Pro"))
     (progn
       (set-face-font 'default "Source Code Pro")
+      (load-theme 'spolsky)
       (cond ((eq system-type 'darwin) (set-face-attribute 'default nil :height 160))
 	    ((eq system-type 'gnu/linux) (set-face-attribute 'default nil :height 110)))))
 
