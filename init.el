@@ -44,12 +44,20 @@
       size-indication-mode 1
       savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 
-(setq tab-width 4)
+;;(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+;;(setq indent-line-function 'insert-tab) 
 
 ;; save a list of open files in ~/.emacs.d/.emacs.desktop
 ;; save the desktop file automatically if it already exists
 (setq desktop-save 'if-exists)
 (desktop-save-mode 1)
+
+;; better organize autosave and backup files everywhere
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t))
+	  backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
+;; create the autosave dir if necessary, since emacs won't.
+(make-directory "~/.emacs.d/autosaves/" t)
 
 ;; save a bunch of variables to the desktop file
 ;; for lists specify the len of the maximal saved data also
@@ -89,8 +97,16 @@
   (exec-path-from-shell-initialize)
   (setq mouse-wheel-scroll-amount (quote (0.01))))
 
+;; magit rules
+(global-set-key (kbd "C-x g") 'magit-status)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2))
+(add-hook 'web-mode-hook  'my-web-mode-hook)
+
 (require 'smartparens-config)
 (require 'auto-complete)
 
@@ -146,5 +162,5 @@
       (set-face-font 'default "Source Code Pro")
       (load-theme 'spolsky)
       (cond ((eq system-type 'darwin) (set-face-attribute 'default nil :height 160))
-	    ((eq system-type 'gnu/linux) (set-face-attribute 'default nil :height 110)))))
+	    ((eq system-type 'gnu/linux) (set-face-attribute 'default nil :height 100)))))
 
