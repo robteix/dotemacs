@@ -44,6 +44,8 @@
       size-indication-mode 1
       savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 
+(setq tab-width 4)
+
 ;; save a list of open files in ~/.emacs.d/.emacs.desktop
 ;; save the desktop file automatically if it already exists
 (setq desktop-save 'if-exists)
