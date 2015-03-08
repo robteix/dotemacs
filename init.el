@@ -135,8 +135,9 @@
       nil t))
 
 ;; Set font to Source Code Pro in systems that have it
-(if (font-existsp "Source Code Pro")
+(if (and (display-graphic-p) (font-existsp "Source Code Pro"))
     (progn
       (set-face-font 'default "Source Code Pro")
-      (set-face-attribute 'default nil :height 140)))
+      (cond ((eq system-type 'darwin) (set-face-attribute 'default nil :height 160))
+	    ((eq system-type 'gnu/linux) (set-face-attribute 'default nil :height 110)))))
 
