@@ -3,7 +3,7 @@
   (package-initialize)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t))
 
-
+(add-to-list 'load-path "~/.emacs.d")
 
 ;; install package if not installed
 (defun require-package (package &optional min-version no-refresh)
@@ -29,7 +29,7 @@
 (require-package 'web-mode)
 (require-package 'magit)
 (require-package 'markdown-mode)
-(require-package 'sublime-themes)
+(require-package 'rebox2)
 
 ;; misc emacs stuff
 (setq inhibit-startup-screen t)
@@ -153,14 +153,18 @@
   (if (null (x-list-fonts font))
       nil t))
 
-;; make sure the spolky theme can be loaded
-(setq custom-safe-themes '("0c29db826418061b40564e3351194a3d4a125d182c6ee5178c237a7364f0ff12" default))
-
 ;; Set font to Source Code Pro in systems that have it
 (if (and (display-graphic-p) (font-existsp "Source Code Pro"))
     (progn
       (set-face-font 'default "Source Code Pro")
-      (load-theme 'spolsky)
+	  (require 'robteix-theme)
       (cond ((eq system-type 'darwin) (set-face-attribute 'default nil :height 160))
-	    ((eq system-type 'gnu/linux) (set-face-attribute 'default nil :height 100)))))
+			((eq system-type 'gnu/linux) (set-face-attribute 'default nil :height 130)))))
 
+;; rebox2
+(add-hook 'prog-mode-hook (lambda ()
+							(set (make-local-variable 'rebox-style-loop) '(43 24 243))
+							(set (make-local-variable 'rebox-min-fill-column) 40)
+							(local-set-key [(meta q)] 'rebox-dwim)
+							(local-set-key [(shift meta q)] 'rebox-cycle)
+							(rebox-mode 1)))
