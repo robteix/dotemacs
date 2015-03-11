@@ -3,7 +3,8 @@
   (package-initialize)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t))
 
-(add-to-list 'load-path "~/.emacs.d")
+;; my own lisp files
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 ;; install package if not installed
 (defun require-package (package &optional min-version no-refresh)
@@ -162,9 +163,12 @@
 			((eq system-type 'gnu/linux) (set-face-attribute 'default nil :height 130)))))
 
 ;; rebox2
-(add-hook 'prog-mode-hook (lambda ()
-							(set (make-local-variable 'rebox-style-loop) '(43 24 243))
-							(set (make-local-variable 'rebox-min-fill-column) 40)
-							(local-set-key [(meta q)] 'rebox-dwim)
-							(local-set-key [(shift meta q)] 'rebox-cycle)
-							(rebox-mode 1)))
+(defun rebox-setup ()
+  ;;(set (make-local-variable 'rebox-style-loop) '(43 24 243))
+  (set (make-local-variable 'rebox-min-fill-column) 70)
+  (local-set-key [(meta q)] 'rebox-dwim)
+  (local-set-key [(shift meta q)] 'rebox-cycle)
+  (rebox-mode 1))
+
+(add-hook 'prog-mode-hook 'rebox-setup)
+(add-hook 'js-mode-hook 'rebox-setup)
