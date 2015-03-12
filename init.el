@@ -172,3 +172,9 @@
 
 (add-hook 'prog-mode-hook 'rebox-setup)
 (add-hook 'js-mode-hook 'rebox-setup)
+
+;; ido stuff
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(setq ido-ignore-extensions t)
+(ido-mode 1)
