@@ -31,6 +31,7 @@
 (require-package 'magit)
 (require-package 'markdown-mode)
 (require-package 'rebox2)
+(require-package 'fic-mode)
 
 ;; misc emacs stuff
 (setq inhibit-startup-screen t)
@@ -100,6 +101,9 @@
 
 ;; magit rules
 (global-set-key (kbd "C-x g") 'magit-status)
+(advice-add #'magit-key-mode-popup-committing :after
+            (lambda ()
+              (magit-key-mode-toggle-option (quote committing) "--verbose")))
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -110,6 +114,12 @@
 
 (require 'smartparens-config)
 (require 'auto-complete)
+
+;; org mode
+(setq org-todo-keywords
+	  '((sequence "TODO" "|" "DONE")
+		(sequence "BUG" "SERVER" "CLIENT" "UI" "ENHANCEMENT" "|" "FIXED")
+		(sequence "|" "CANCELED")))
 
 ;; TRAMP
 (add-to-list 'load-path "~/.emacs.d/tramp/lisp")
@@ -133,6 +143,7 @@
 
 			  (setq gofmt-command "goimports")
 			  (smartparens-mode 1)
+			  (turn-on-fic-mode)
 			  ))
 
 (require 'go-eldoc)
@@ -154,13 +165,25 @@
   (if (null (x-list-fonts font))
       nil t))
 
+(defun robteix-set-font (font-list)
+  (let ((font-is-setp nil)
+		(value))
+	(dolist (elt font-list value)
+	  (unless font-is-setp
+		(when (font-existsp elt)
+		  (set-face-font 'default elt)
+		  (setq font-is-setp t))))))
+
+
 ;; Set font to Source Code Pro in systems that have it
-(if (and (display-graphic-p) (font-existsp "Source Code Pro"))
-    (progn
-      (set-face-font 'default "Source Code Pro")
-	  (require 'robteix-theme)
+(if (display-graphic-p)
+	(progn
+	  (robteix-set-font '("Monospace" "Source Code Pro" "Inconsolata"))
+	 ;; (require 'robteix-theme)
       (cond ((eq system-type 'darwin) (set-face-attribute 'default nil :height 160))
-			((eq system-type 'gnu/linux) (set-face-attribute 'default nil :height 130)))))
+			((eq system-type 'gnu/linux) (set-face-attribute 'default nil :height 160)))))
+
+;; (set-face-font 'default "Monospace")
 
 ;; rebox2
 (defun rebox-setup ()
@@ -178,3 +201,5 @@
 (setq ido-everywhere t)
 (setq ido-ignore-extensions t)
 (ido-mode 1)
+
+
